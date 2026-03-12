@@ -21,6 +21,7 @@ SESSION="parasutcom"
 
 exit_var=0
 
+# checks if folders is missed or not // you can delete when unneeded.
 for dir in client trinity server billing e-doc-broker; do
   if [ ! -d "$BASE_DIR/$dir" ]; then
     print "$dir directory is missing."
@@ -33,7 +34,9 @@ if [ "$exit_var" -ne 0 ]; then
   exit "$exit_var"
 fi
 
+# Main Part
 if ! tmux has-session -t "$SESSION" 2>/dev/null; then
+
   # Frontend
   tmux new-session -d -s "$SESSION" -n frontend -c "$BASE_DIR/client"
   tmux send-keys -t "$SESSION:frontend" 'exec ./node_modules/ember-cli/bin/ember serve' C-m

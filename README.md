@@ -26,15 +26,14 @@ echo "legacy_version_file = yes" > ~/.asdfrc
 ```
 
 ### if you have mac arm64
-just proceed to our guides about that or search asdf-ruby and asdf-nodejs troubleshootings about it. </br>
+just proceed to our guides about that or search `asdf-ruby` and `asdf-nodejs`github pages for troubleshootings about it. </br>
 
 
 # FRONTEND
 ## Client
 ### bootstrap:
-copy the "node_modules" and "bower_components" from github links. </br>
-[link1](https://github.com/parasutcom/client-node-modules) of node_modules and 
-[link2](https://github.com/parasutcom/client-bower-components) of bower_components
+Download or clone the `node_modules` and `bower_components` from github links and copy their content to the clients root folder. </br>
+Links of [client-node-modules](https://github.com/parasutcom/client-node-modules) and [client-bower-components](https://github.com/parasutcom/client-bower-components).
 ```sh
 asdf install nodejs 0.11.16 && asdf set nodejs 0.11.16
 npm install -g bower
@@ -172,17 +171,18 @@ sidekiq (foreman):
 foreman start --formation ",sidekiq_inbound=1,sidekiq_outbound=1,sidekiq_storage=1,sidekiq_other=1,sidekiq_send=1"
 ```
 
-# Ready to use setup and start scripts
+# Included Scripts
 
-2 adet kullanıma hazır script yazdım:
-1. setup scripti çalıştırıldığı klasörde işlemlerini yaparak sistemi çalıştırmaya hazır bir hale getirir.
-2. start scripti çalıştırıldığı klasördeki projeleri çalıştırır.
+This project includes two ready-to-use scripts:
+1. __Setup script__</br>Prepares the system in the current working directory and makes the environment ready for development.
 
-not: henüz start script için tüm projeler yok ise ne yapmalı use-case'ini eklemedim. </br>
-"start_all_tmux.sh" içindeki tmux komutları yorum satırına alınarak istenen projelerde işlem yapılabilir.
-</br>
-not 2: sadece bu guide içinde verilen projelere erişimim olduğu için (çünkü stajyerim) bu proje sadece belirtilen repoları içeriyor. </br>
-ekstra ayarları bu projede uygulanan kurgu tekrarlanarak eklenebilir.
+2. __Start script__</br>Starts the projects located in the current working directory.
+
+### Notes
+- The start script currently does not include a use case for handling situations where some projects are missing.
+- In `start_all_tmux.sh`, tmux commands can be commented out if only specific projects should be started.
+- Because I currently only have access to the limited projects listed in this guide as an intern, this project includes only those specified repositories.
+- Additional setup steps and configurations can be added by following the same structure already used in this project.
 
 ## Setup Script
 
@@ -196,6 +196,8 @@ requirement: `brew install asdf` ve bu guide içinde olan diğer kurulum gereksi
 
 this script installs and set all projects to your current folder.
 
+### examples:
+
 ```sh
 bash ./bootstraping-projects/setup.sh
 ```
@@ -203,13 +205,13 @@ or
 ```sh
 bash ~/parasutcom/bootstraping-projects/setup.sh
 ```
-another example:
+### another example:
 ```sh
 omeryavas@Omers-MacBook-Pro ~/parasutcom % bash ./bootstraping-projects/setup.sh
 #                                           |
 #                                           |--> this commands clones and sets all repos in "~/parasutcom" folder
 ```
-## Startup Script
+## Start Script
 
 how to: 
 1. go to your project folder
@@ -218,9 +220,10 @@ how to:
 
 requirement: `brew install tmux` </br></br>
 
-this script starts the repos in current folder and set tmux settings
+this script starts the repos in current folder and set tmux settings.
 
 ### examples:
+
 ```sh
 bash ./bootstraping-projects/start_all_tmux.sh
 ```
@@ -228,7 +231,7 @@ or
 ```sh
 bash ~/parasutcom/bootstraping-projects/start_all_tmux.sh
 ```
-another example:
+### another example:
 ```sh
 omeryavas@Omers-MacBook-Pro ~/parasutcom % bash ./bootstraping-projects/start_all_tmux.sh
 #                                           |
