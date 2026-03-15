@@ -69,4 +69,5 @@ if ! tmux has-session -t "$SESSION" 2>/dev/null; then
   # tmux new-window -t "$SESSION" -n shell -c "$BASE_DIR"
 fi
 
+tmux select-window -t "$SESSION:frontend"
 tmux attach-session -t "$SESSION"
