@@ -14,6 +14,7 @@ if [ ! -d "server" ]; then
   exit 1
 fi
 
+# settings
 (
   cd "server"
 
@@ -21,13 +22,6 @@ fi
   asdf set ruby 2.6.9
 
   bundle install
-
-  SEED_E_MIKRO_EINVOICE=true \
-  SEED_E_MIKRO_ESMM=true \
-  SEED_FORIBA_EINVOICE=true \
-  SEED_E_MIKRO_EARCHIVE_ONLY=true \
-  SEED_IRGAT_EARCHIVE_ONLY=true \
-  bin/bootstrap
 )
 
 print_done "Setting up Server success"

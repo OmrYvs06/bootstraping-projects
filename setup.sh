@@ -22,7 +22,8 @@ bash "$BASE_DIR/steps/06_setup_trinity.sh"
 bash "$BASE_DIR/steps/07_setup_server.sh"
 bash "$BASE_DIR/steps/08_setup_billing.sh"
 bash "$BASE_DIR/steps/09_setup_e_doc_broker.sh"
-bash "$BASE_DIR/steps/10_cleanup.sh"
+bash "$BASE_DIR/steps/10_setup_databases_bootstrap.sh"
+bash "$BASE_DIR/steps/11_cleanup.sh"
 
 print_done "All setup steps completed successfully."
 
