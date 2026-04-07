@@ -78,6 +78,31 @@ bower install
 yarn run ember serve --watcher=polling --polling-interval=1000
 ```
 
+## Phoenix
+### bootstrap:
+```sh
+asdf plugin add nodejs || true
+arch -x86_64 /bin/zsh -lc '
+asdf install nodejs 10.15.3
+asdf set nodejs 10.15.3
+'
+asdf plugin add yarn || true
+asdf install yarn 1.21.1
+asdf set yarn 1.21.1
+npm install -g bower
+bower install
+yarn install
+```
+### start (Bizmu):
+```sh
+PROJECT_TARGET=phoenix ./node_modules/ember-cli/bin/ember serve
+```
+### start (Assist):
+```sh
+PROJECT_TARGET=companion ./node_modules/ember-cli/bin/ember serve
+```
+Note: `phoenix-bizmu` and `phoenix-assist` use the same port, so run only one at a time.
+
 # BACKEND
 ## Server
 ### bootstrap:
@@ -139,6 +164,14 @@ foreman start --formation ",sidekiq_inbound=1,sidekiq_outbound=1,sidekiq_storage
 ```sh
 yarn run ember serve --watcher=polling --polling-interval=1000
 ```
+### Phoenix (Bizmu):
+```sh
+PROJECT_TARGET=phoenix ./node_modules/ember-cli/bin/ember serve
+```
+### Phoenix (Assist):
+```sh
+PROJECT_TARGET=companion ./node_modules/ember-cli/bin/ember serve
+```
 
 ## Backend
 ### Server:
@@ -173,28 +206,29 @@ foreman start --formation ",sidekiq_inbound=1,sidekiq_outbound=1,sidekiq_storage
 
 # Included Scripts
 
-This project includes two ready-to-use scripts:
-1. __Setup script__</br>Prepares the system in the current working directory and makes the environment ready for development.
-
-2. __Start script__</br>Starts the projects located in the current working directory.
+This project includes four scripts:
+1. __Setup script (`setup.sh`)__</br>Prepares and installs project dependencies in the current working directory.
+2. __Start script (`start.sh`)__</br>Starts selected projects in tmux session `parasutcom`.
+3. __Stop script (`stop.sh`)__</br>Stops tmux session `parasutcom` and cleans residual project processes.
+4. __Legacy start script (`start-all-tmux-legacy.sh`)__</br>Older tmux startup flow kept for backward compatibility.
 
 ### Notes
-- The start script currently does not include a use case for handling situations where some projects are missing.
-- In `start_all_tmux.sh`, tmux commands can be commented out if only specific projects should be started.
-- Because I currently only have access to the limited projects listed in this guide as an intern, this project includes only those specified repositories.
-- Additional setup steps and configurations can be added by following the same structure already used in this project.
+- `start.sh` is the current main entry point.
+- `start.sh` can start all default projects or only selected projects by name.
+- `phoenix-bizmu` and `phoenix-assist` cannot run together (same port).
+- `stop.sh` sends `Ctrl+C` to panes, waits, kills the tmux session, then runs targeted `pkill` cleanup.
+- `start-all-tmux-legacy.sh` uses a fixed startup sequence and Phoenix target selection is done by commenting/uncommenting lines in the script.
 
-## Setup Script
+## Setup Script (`setup.sh`)
 
-how to: 
+how to:
 1. go to your project folder
 2. call this script
 3. you are done
 
 requirement: `brew install asdf` ve bu guide içinde olan diğer kurulum gereksinimleri </br></br>
 
-
-this script installs and set all projects to your current folder.
+this script installs and sets all projects in your current folder.
 
 ### examples:
 
@@ -205,35 +239,46 @@ or
 ```sh
 bash ~/parasutcom/bootstraping-projects/setup.sh
 ```
-### another example:
-```sh
-omeryavas@Omers-MacBook-Pro ~/parasutcom % bash ./bootstraping-projects/setup.sh
-#                                           |
-#                                           |--> this commands clones and sets all repos in "~/parasutcom" folder
-```
-## Start Script
 
-how to: 
-1. go to your project folder
+## Start Script (`start.sh`)
+
+how to:
+1. go to your project folder (parent folder that contains repos like `client`, `trinity`, `phoenix`, `server`, ...)
 2. call this script
-3. you are done
+3. tmux session is created/attached
 
 requirement: `brew install tmux` </br></br>
-
-this script starts the repos in current folder and set tmux settings.
 
 ### examples:
 
 ```sh
-bash ./bootstraping-projects/start_all_tmux.sh
+# start default projects:
+bash ./bootstraping-projects/start.sh
 ```
-or
+
 ```sh
-bash ~/parasutcom/bootstraping-projects/start_all_tmux.sh
+# start selected projects:
+bash ./bootstraping-projects/start.sh client trinity phoenix-bizmu server
 ```
-### another example:
+
+Available project names:
+`client`, `trinity`, `phoenix-bizmu`, `phoenix-assist`, `server`, `billing`, `e-doc-broker`
+
+## Stop Script (`stop.sh`)
+
+Use this when you want to stop all processes started by `start.sh` in tmux session `parasutcom`.
+
 ```sh
-omeryavas@Omers-MacBook-Pro ~/parasutcom % bash ./bootstraping-projects/start_all_tmux.sh
-#                                           |
-#                                           |--> this commands starts all repos in "~/parasutcom" folder
+bash ./bootstraping-projects/stop.sh
 ```
+
+## Legacy Start Script (`start-all-tmux-legacy.sh`)
+
+This is the old startup script. It is kept for compatibility and manual flow cases.
+
+```sh
+bash ./bootstraping-projects/start-all-tmux-legacy.sh
+```
+
+Legacy Phoenix note:
+- In this legacy script, Bizmu vs Companion target is selected manually by commenting/uncommenting the related `tmux send-keys` line.
