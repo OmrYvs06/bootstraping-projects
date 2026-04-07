@@ -38,4 +38,4 @@ print_info()  { printf "[INFO] %s\n" "$1"; }
 print_done()  { printf "[DONE] %s\n" "$1"; }
 print_skip()  { printf "[SKIP] %s\n" "$1"; }
 print_warn()  { printf "[WARN] %s\n" "$1"; }
-print_error() { printf "[ERROR] %s\n" "$1"; }
+print_error() { printf "[ERROR] %s\n" "$1" >&2; }

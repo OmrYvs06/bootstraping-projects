@@ -34,13 +34,13 @@ fi
 
 if [ ! -d "client/node_modules" ]; then
   print_info "copying node_modules to client."
-  cp -r "client-node-modules/node_modules" "client/"
+  mv "client-node-modules/node_modules" "client/"
   print_done "node_modules copied to client."
 fi
 
 if [ ! -d "client/bower_components" ]; then
   print_info "copying bower_components to client."
-  cp -r "client-bower-components/bower_components" "client/"
+  mv "client-bower-components/bower_components" "client/"
   print_done "bower_components copied to client."
 fi
 

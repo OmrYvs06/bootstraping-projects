@@ -7,7 +7,8 @@ clone_repo_if_missing() {
     print_skip "$repo already exists."
   else
     print_info "Cloning $repo..."
-    git clone "https://github.com/parasutcom/$repo" "$repo"
+    #git clone "https://github.com/parasutcom/$repo" "$repo"
+    git clone "git@github.com:parasutcom/$repo.git" "$repo"
     print_done "$repo cloned."
   fi
 }

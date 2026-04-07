@@ -31,14 +31,22 @@ fi
 (
   cd "shared-logic"
 
+  # true to ignore "Plugin nodejs already added" error
+  asdf plugin add nodejs || true
+  arch -x86_64 /bin/zsh -lc '
   asdf install nodejs 8.16.0
   asdf set nodejs 8.16.0
+  '
 
+  # true to ignore "Plugin yarn already added" error
+  asdf plugin add yarn || true
   asdf install yarn 1.21.1
   asdf set yarn 1.21.1
 
-  yarn install
+  npm install -g bower
   bower install
+
+  yarn install
 )
 
 print_done "Setting up Shared-Logic success"

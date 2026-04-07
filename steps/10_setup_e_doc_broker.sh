@@ -17,8 +17,12 @@ fi
 # settings
 (
   cd "e-doc-broker"
-
-  asdf install ruby 2.6.6
+  
+  # true to ignore "Plugin ruby already added" error
+  asdf plugin add ruby || true
+  
+  CFLAGS='-Wno-compound-token-split-by-macro -Wno-pointer-to-enum-cast -Wno-nullability-completeness -Wno-expansion-to-defined -Wno-undef-prefix -Wno-error=implicit-function-declaration' asdf install ruby 2.6.6
+  gem install bundler:1.17.3 # may be commented out
   asdf set ruby 2.6.6
 
   bundle install

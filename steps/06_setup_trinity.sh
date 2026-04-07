@@ -17,16 +17,28 @@ fi
 # settings
 (
   cd "trinity"
-
+  
+  # true to ignore "Plugin nodejs already added" error
+  asdf plugin add nodejs || true
+  arch -x86_64 /bin/zsh -lc '
   asdf install nodejs 8.16.0
   asdf set nodejs 8.16.0
-
+  '
+  print_info "nodejs 8.16.0 setted"
+  
+  # true to ignore "Plugin yarn already added" error
+  asdf plugin add yarn || true
   asdf install yarn 1.21.1
   asdf set yarn 1.21.1
+  print_info "yarn 1.21.1 setted"
 
   npm install -g bower
+  print_info "bower installed"
   bower install
+  print_info "bower dependencies installed"
+
   yarn install
+  print_info "yarn dependencies installed"
 
   cat > .env.development <<'EOF'
 API_HOST=http://api.parasut.localhost:3000

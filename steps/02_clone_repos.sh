@@ -14,6 +14,7 @@ repos=(
   "client"
   "trinity"
   "shared-logic"
+  "phoenix"
 )
 
 # This cloning script only doing clone, not checking if its already okey to not clone 

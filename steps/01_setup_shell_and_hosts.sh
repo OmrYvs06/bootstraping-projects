@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# NOTE: ileride daha fazla soyutlama yapabiliriz ama simdilik bu kadar yeterli
+# mesela: - export satırlarını tek tek eklemek yerine bir config dosyası yapıp oradan okuyabiliriz
+
 set -euo pipefail
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -49,6 +52,10 @@ while IFS= read -r line; do
 done < "$TMP_HOSTS_BLOCK"
 
 rm -f "$TMP_HOSTS_BLOCK"
+
+echo "asking for sudo to flush DNS cache (required for hosts changes to take effect)..."
+sudo dscacheutil -flushcache
+
 
 # ------------------------------------------------------
 # ---- Finishing Info ----------------------------------
