@@ -23,7 +23,7 @@ bash "$BASE_DIR/steps/07_setup_phoenix.sh"
 bash "$BASE_DIR/steps/08_setup_server.sh"
 bash "$BASE_DIR/steps/09_setup_billing.sh"
 bash "$BASE_DIR/steps/10_setup_e_doc_broker.sh"
-# bash "$BASE_DIR/steps/11_bootstrap_databases.sh" # don't fotget to connect to VPN before running this step
+bash "$BASE_DIR/steps/11_bootstrap_databases.sh" # don't forget to connect to VPN before running this step
 bash "$BASE_DIR/steps/12_cleanup.sh"
 
 print_done "All setup steps completed successfully."
